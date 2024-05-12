@@ -1,0 +1,72 @@
+body {
+  color: #7a6563;
+  background-color: #ece2d0;
+  font-family: Franklin Gothic Medium, Arial Narrow, Arial, sans-serif;
+}
+
+header {
+  color: #ece2d0;
+  background-color: #7a6563;
+  border-bottom: 6px solid #e56399;
+}
+
+h1 {
+  width: 50%;
+  margin: auto;
+  padding-top: 40px;
+  display: block;
+}
+
+.userBtns {
+  flex-direction: row;
+  width: 50%;
+  margin: 20px auto;
+  display: flex;
+}
+
+.userBtns h2 {
+  border-bottom: 3px solid #e56399;
+  width: auto;
+  margin: 10px;
+  padding: 10px;
+}
+
+.userBtns h2:hover, #loginBtn:hover {
+  color: #7fd1b9;
+  background-color: #ece2d0;
+  border-bottom: 3px solid #7fd1b9;
+}
+
+#login-form {
+  border: 2px solid #7a6563;
+  width: 50%;
+  max-width: 100%;
+  margin: 60px auto;
+  padding: 20px;
+  font-family: Franklin Gothic Medium, Arial Narrow, Arial, sans-serif;
+  font-weight: 500;
+  display: block;
+  box-shadow: 0 0 8px #0003;
+}
+
+#email, #password {
+  box-shadow: none;
+  border-bottom: 3px solid #e56399;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+#loginBtn {
+  background-color: #ece2d0;
+  border-bottom: 3px solid #e56399;
+  margin-top: 20px;
+  font-family: Franklin Gothic Medium, Arial Narrow, Arial, sans-serif;
+}
+
+.header-form {
+  width: 50%;
+  max-width: 100%;
+  margin: 30px auto;
+  display: block;
+}
+/*# sourceMappingURL=index.34df27b5.css.map */
