@@ -1,7 +1,7 @@
 "use strict";
 
 const loginBtnEl = document.getElementById("loginBtn"); //Knapp för login
-const loginEmailEl = document.getElementById("email"); //Input användarnamn/email
+const loginEmailEl = document.getElementById("username"); //Input användarnamn/email
 const loginPassEl = document.getElementById("password"); //Input lösenord
 const messageEl = document.getElementById("message"); //meddelande om inloggning
 
@@ -23,7 +23,7 @@ async function loginUser(){
 
 
 try{
-    let response = await fetch('localhost:3550/api/login', {
+    let response = await fetch('http://localhost:3550/api/login', {
         method: "POST",
         headers: {
             "Content-type": "application/json"
