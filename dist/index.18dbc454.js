@@ -589,12 +589,11 @@ const loginBtnEl = document.getElementById("loginBtn"); //Knapp för login
 const loginEmailEl = document.getElementById("username"); //Input användarnamn/email
 const loginPassEl = document.getElementById("password"); //Input lösenord
 const messageEl = document.getElementById("message"); //meddelande om inloggning
-const memberBtnEl = document.getElementById("memberBtn");
+const memberBtnEl = document.getElementById("memberBtn"); //knapp för skyddad route
+//Eventlyssnare skyddad
 memberBtnEl.addEventListener("click", accessMemberArea, false);
 //Knapp: logga in registrerad användare
 loginBtnEl.addEventListener("click", loginUser, false);
-//Registrering och inlogg mot API med try/catch och lagring i LS
-//const url = "localhost:3500/api/";
 //Registrerad användare försöker logga in 
 async function loginUser(e) {
     e.preventDefault();
@@ -610,21 +609,25 @@ async function loginUser(e) {
             })
         });
         let data = await response.json();
-        if (!response.ok) throw new Error("Inloggningen misslyckades");
+        if (!response.ok) {
+            messageEl.innerHTML = "Inloggningen misslyckades!";
+            throw new Error("Inloggningen misslyckades");
+        }
         console.log(data.response.token);
         if (response.status === 200) {
             localStorage.setItem("token", data.response.token);
-            window.location.href = "http://localhost:1234/loggedin.html";
+            window.location.href = "loggedin.html";
         } else console.log("Fel e-postadress eller l\xf6senord");
     } catch (error) {
         console.error("Error: " + error);
+        messageEl.innerHTML = "Fel anv\xe4ndarnamn eller l\xf6senord!";
     }
 }
 //Åtkomst till skyddad route
 async function accessMemberArea(e) {
     e.preventDefault();
     try {
-        if (!localStorage.getItem("token")) window.location.href = "http://localhost:1234/login.html";
+        if (!localStorage.getItem("token")) window.location.href = "index.html";
         //Skicka token vid varje anrop
         let token = localStorage.getItem("token");
         console.log("Lagrad token: " + token);
@@ -634,20 +637,19 @@ async function accessMemberArea(e) {
                 "Authorization": "Bearer " + token
             }
         });
-        //console.log("Token skickad");
         await response();
         if (!response.ok) {
             messageEl.innerHTML = "Du har inte tillg\xe5ng till sidan";
             throw new Error("Du har inte tillg\xe5ng till sidan!");
         }
         if (response.status === 200) {
-            window.location.href = "http://localhost:1234/memberzone.html";
+            window.location.href = "memberzone.html";
             memberMessageEl.innerHTML = "Du blev insl\xe4ppt!";
             console.log("Du lyckades ta dig in!");
         }
     } catch (error) {
         console.error("Error: " + error);
-        window.location.href = "http://localhost:1234/login.html";
+        window.location.href = "index.html";
     }
 }
 
