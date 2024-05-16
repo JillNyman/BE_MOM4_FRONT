@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Startsida</title>
     <link rel="stylesheet" href="/index.34df27b5.css">
     <script src="/index.18dbc454.js" defer=""></script>
 </head>
@@ -11,23 +11,25 @@
     <h1>Rubrik: </h1>
     <div class="userBtns">
         <h2>Logga in</h2>
-        <h2>Skapa användare</h2>
+        <a href="/adduser.html"><h2>Skapa användare</h2></a>
+        <a id="memberBtn"><h2>Member zone</h2></a>
     </div>
 </header>
 <body>
     <main>
         <h2 class="header-form">Logga in</h2>
         <h4 id="message"></h4>
-        <form id="login-form">
+        <form id="login-form" method="POST">
             <label for="username">Email:</label>
             <br>
             <input autocomplete="off" type="text" id="username" name="username">
             <br>
             <label for="password">Lösenord:</label>
             <br>
-            <input autocomplete="off" type="text" id="password" name="password">
+            <input autocomplete="off" type="password" id="password" name="password">
             <br>
             <input type="submit" id="loginBtn" value="Logga in"> 
+            
         </form>
     </main>
     

@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"j2YDk":[function(require,module,exports) {
+})({"7j6eH":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
 var HMR_USE_SSE = false;
-module.bundle.HMR_BUNDLE_ID = "0bcb44a518dbc454";
+module.bundle.HMR_BUNDLE_ID = "5bb9a3c0a76382cf";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -583,23 +583,19 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
     });
 }
 
-},{}],"1SICI":[function(require,module,exports) {
+},{}],"gF6CL":[function(require,module,exports) {
 "use strict";
-const loginBtnEl = document.getElementById("loginBtn"); //Knapp för login
+const addBtnEl = document.getElementById("addBtn"); //Knapp för skapa användare
 const loginEmailEl = document.getElementById("username"); //Input användarnamn/email
 const loginPassEl = document.getElementById("password"); //Input lösenord
 const messageEl = document.getElementById("message"); //meddelande om inloggning
-const memberBtnEl = document.getElementById("memberBtn");
-memberBtnEl.addEventListener("click", accessMemberArea, false);
 //Knapp: logga in registrerad användare
-loginBtnEl.addEventListener("click", loginUser, false);
-//Registrering och inlogg mot API med try/catch och lagring i LS
-//const url = "localhost:3500/api/";
-//Registrerad användare försöker logga in 
-async function loginUser(e) {
+addBtnEl.addEventListener("click", createUser, false);
+//Skapa ny användare
+async function createUser(e) {
     e.preventDefault();
     try {
-        let response = await fetch("http://localhost:3550/api/login", {
+        let response = await fetch("http://localhost:3550/api/register", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -610,47 +606,16 @@ async function loginUser(e) {
             })
         });
         let data = await response.json();
-        if (!response.ok) throw new Error("Inloggningen misslyckades");
-        console.log(data.response.token);
-        if (response.status === 200) {
-            localStorage.setItem("token", data.response.token);
-            window.location.href = "http://localhost:1234/loggedin.html";
-        } else console.log("Fel e-postadress eller l\xf6senord");
+        if (!response.ok) throw new Error("Ingen ny anv\xe4ndare skapades");
+        if (response.status === 201) {
+            messageEl.innerHTML = "Anv\xe4ndare skapad!";
+            console.log(data);
+        } else messageEl.innerHTML = "N\xe5got gick fel, f\xf6rs\xf6k igen!";
     } catch (error) {
         console.error("Error: " + error);
     }
 }
-//Åtkomst till skyddad route
-async function accessMemberArea(e) {
-    e.preventDefault();
-    try {
-        if (!localStorage.getItem("token")) window.location.href = "http://localhost:1234/login.html";
-        //Skicka token vid varje anrop
-        let token = localStorage.getItem("token");
-        console.log("Lagrad token: " + token);
-        let response = await fetch("http://localhost:3550/api/protected", {
-            //method: "GET",
-            headers: {
-                "Authorization": "Bearer " + token
-            }
-        });
-        //console.log("Token skickad");
-        await response();
-        if (!response.ok) {
-            messageEl.innerHTML = "Du har inte tillg\xe5ng till sidan";
-            throw new Error("Du har inte tillg\xe5ng till sidan!");
-        }
-        if (response.status === 200) {
-            window.location.href = "http://localhost:1234/memberzone.html";
-            memberMessageEl.innerHTML = "Du blev insl\xe4ppt!";
-            console.log("Du lyckades ta dig in!");
-        }
-    } catch (error) {
-        console.error("Error: " + error);
-        window.location.href = "http://localhost:1234/login.html";
-    }
-}
 
-},{}]},["j2YDk","1SICI"], "1SICI", "parcelRequirec13a")
+},{}]},["7j6eH","gF6CL"], "gF6CL", "parcelRequirec13a")
 
-//# sourceMappingURL=index.18dbc454.js.map
+//# sourceMappingURL=adduser.a76382cf.js.map
