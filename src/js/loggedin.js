@@ -1,16 +1,14 @@
 "use strict";
 
-
-
 const messageEl = document.getElementById("message");
 const memberMessageEl = document.getElementById("memberMessage");
-const memberBtnEl = document.getElementById("memberBtn");
+const memberBtn2El = document.getElementById("memberBtn2");
 const logOutBtnEl = document.getElementById("logOutBtn");
+
 //Nå skyddad route
-memberBtnEl.addEventListener("click", accessMemberArea, false);
+memberBtn2El.addEventListener("click", accessMemberArea, false);
 //Logga ut
 logOutBtnEl.addEventListener("click", logOut, false);
-
 
 
 //Åtkomst till skyddad route
@@ -34,11 +32,13 @@ let response = await fetch('http://localhost:3550/api/protected', {
 await response();
 if(!response.ok){
     messageEl.innerHTML = "Du har inte tillgång till sidan";
-    throw new Error('Du har inte tillgång till sidan!');   
+    throw new Error('Du har inte tillgång till sidan!');
+    
 
 }
 
-if(response.status === 200){    
+if(response.status === 200){
+    
     window.location.href = "memberzone.html";
     memberMessageEl.innerHTML = "Du blev insläppt!";
     console.log("Du lyckades ta dig in!");
@@ -50,6 +50,7 @@ if(response.status === 200){
 }
 
 function logOut(){
-    localStorage.clear();
-    window.location.href = "index.html";
+    localStorage.clear()
+    .then(window.location.href = "index.html");
+    console.log("Utloggad!");
 }

@@ -594,11 +594,17 @@ const memberBtnEl = document.getElementById("memberBtn"); //knapp för skyddad r
 memberBtnEl.addEventListener("click", accessMemberArea, false);
 //Knapp: logga in registrerad användare
 loginBtnEl.addEventListener("click", loginUser, false);
+//-----------------
+memberBtnEl.addEventListener("click", accessMemberArea, false);
+loginBtnEl = document.getElementById("loginBtn");
+const memberMessageEl = document.getElementById("memberMessage"); //meddelande på memberzone-sidan
+//Eventlyssnare skyddad
+memberBtnEl.addEventListener("click", accessMemberArea, false);
 //Registrerad användare försöker logga in 
 async function loginUser(e) {
     e.preventDefault();
     try {
-        let response = await fetch("http://localhost:3550/api/login", {
+        let response = await fetch("http://localhost:3552/api/login", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -613,7 +619,7 @@ async function loginUser(e) {
             messageEl.innerHTML = "Inloggningen misslyckades!";
             throw new Error("Inloggningen misslyckades");
         }
-        console.log(data.response.token);
+        console.log("Token lagrad vid inloggning: ", data.response.token);
         if (response.status === 200) {
             localStorage.setItem("token", data.response.token);
             window.location.href = "loggedin.html";
@@ -627,11 +633,14 @@ async function loginUser(e) {
 async function accessMemberArea(e) {
     e.preventDefault();
     try {
-        if (!localStorage.getItem("token")) window.location.href = "index.html";
+        if (!localStorage.getItem("token")) {
+            window.location.href = "/";
+            return messageEl.innerHTML = "Du m\xe5ste logga in f\xf6rst!";
+        }
         //Skicka token vid varje anrop
         let token = localStorage.getItem("token");
         console.log("Lagrad token: " + token);
-        let response = await fetch("http://localhost:3550/api/protected", {
+        let response = await fetch("http://localhost:3552/api/protected", {
             //method: "GET",
             headers: {
                 "Authorization": "Bearer " + token
@@ -651,7 +660,10 @@ async function accessMemberArea(e) {
         console.error("Error: " + error);
         window.location.href = "index.html";
     }
-}
+} /*function logOut(){
+    localStorage.clear();
+    window.location.href = "index.html";
+}*/ 
 
 },{}]},["j2YDk","1SICI"], "1SICI", "parcelRequirec13a")
 

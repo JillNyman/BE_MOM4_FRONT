@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"7j6eH":[function(require,module,exports) {
+})({"1vi2j":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
 var HMR_USE_SSE = false;
-module.bundle.HMR_BUNDLE_ID = "5bb9a3c0a76382cf";
+module.bundle.HMR_BUNDLE_ID = "6f75db5a2810f95e";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -583,44 +583,50 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
     });
 }
 
-},{}],"gF6CL":[function(require,module,exports) {
+},{}],"8u5sy":[function(require,module,exports) {
 "use strict";
-//const addBtnEl = document.getElementById("addBtn"); //Knapp för skapa användare
-const loginEmailEl = document.getElementById("username"); //Input användarnamn/email
-const loginPassEl = document.getElementById("password"); //Input lösenord
-const messageEl = document.getElementById("message"); //meddelande om inloggning
-const addBtnEl = document.getElementById("addBtn");
-//Knapp: logga in ny användare
-addBtnEl.addEventListener("click", createUser, false);
-//Skapa ny användare
-async function createUser(e) {
+const messageEl = document.getElementById("message");
+const memberMessageEl = document.getElementById("memberMessage");
+const memberBtn2El = document.getElementById("memberBtn2");
+const logOutBtnEl = document.getElementById("logOutBtn");
+//Nå skyddad route
+memberBtn2El.addEventListener("click", accessMemberArea, false);
+//Logga ut
+logOutBtnEl.addEventListener("click", logOut, false);
+//Åtkomst till skyddad route
+async function accessMemberArea(e) {
     e.preventDefault();
     try {
-        let response = await fetch("http://localhost:3552/api/register", {
-            method: "POST",
+        if (!localStorage.getItem("token")) window.location.href = "index.html";
+        //Skicka token vid varje anrop
+        let token = localStorage.getItem("token");
+        console.log("Lagrad token: " + token);
+        let response = await fetch("http://localhost:3552/api/protected", {
+            //method: "GET",
             headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-                username: loginEmailEl.value,
-                password: loginPassEl.value
-            })
+                "Authorization": "Bearer " + token
+            }
         });
-        let data = await response.json();
+        await response();
         if (!response.ok) {
-            messageEl.innerHTML = "Lyckades inte skapa ny anv\xe4ndare";
-            throw new Error("Ingen ny anv\xe4ndare skapades");
+            messageEl.innerHTML = "Du har inte tillg\xe5ng till sidan";
+            throw new Error("Du har inte tillg\xe5ng till sidan!");
         }
-        if (response.status === 201) {
-            messageEl.innerHTML = "Anv\xe4ndare skapad!";
-            console.log("Anv\xe4ndare skapad: ", data);
-        } else messageEl.innerHTML = "N\xe5got gick fel, f\xf6rs\xf6k igen!";
+        if (response.status === 200) {
+            window.location.href = "memberzone.html";
+            memberMessageEl.innerHTML = "Du blev insl\xe4ppt!";
+            console.log("Du lyckades ta dig in!");
+        }
     } catch (error) {
-        messageEl.innerHTML = "N\xe5got gick fel. G\xf6r ett nytt f\xf6rs\xf6k.";
         console.error("Error: " + error);
+        window.location.href = "index.html";
     }
 }
+function logOut() {
+    localStorage.clear().then(window.location.href = "index.html");
+    console.log("Utloggad!");
+}
 
-},{}]},["7j6eH","gF6CL"], "gF6CL", "parcelRequirec13a")
+},{}]},["1vi2j","8u5sy"], "8u5sy", "parcelRequirec13a")
 
-//# sourceMappingURL=adduser.a76382cf.js.map
+//# sourceMappingURL=memberzone.2810f95e.js.map

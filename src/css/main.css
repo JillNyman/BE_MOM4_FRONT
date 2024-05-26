@@ -37,9 +37,14 @@ h1{
     border-bottom: 3px solid #7fd1b9;
 }
 
-/*#create-user{
-    border: 6px solid #c65b7c;
-}*/
+a:hover{
+    cursor: pointer;
+}
+
+a:visited{
+    text-decoration: none;
+    color: #ece2d0;
+}
 
 #login-form{
     width: 50%;
@@ -55,7 +60,7 @@ h1{
 
 }
 
-#email, #password{
+#username, #password{
     margin-top: 15px;
     margin-bottom: 5px;
     border-bottom: 3px solid #e56399;
@@ -63,11 +68,16 @@ h1{
     
 }
 
-#loginBtn{
+#loginBtn, #addBtn{
 margin-top: 20px;
 background-color: #ece2d0;
 border-bottom: 3px solid #e56399;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#loginBtn:hover, #addBtn:hover{
+    color: #7fd1b9;
+    background-color: #7a6563;
 }
 
 .header-form{
@@ -75,4 +85,9 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 30px auto;
     width: 50%;
     max-width: 100%;
+}
+
+#message{
+    text-align: center;
+    
 }
